@@ -12,18 +12,7 @@
    },
    "additionalProperties":false,
    "required":[  
-      "manager_id",
-      "civility",
-      "first_name",
-      "last_name",
-      "profession",
-      "location",
       "user_id",
-      "emails",
-      "photos",
-      "phones",
-      "title",
-      "overview",
-      "description"
+      "contact"
    ]
 }
