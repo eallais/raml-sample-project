@@ -93,8 +93,7 @@
 				<artifactId>springmvc-raml-plugin</artifactId>
 				<version>${springmvc-raml-plugin.version}</version>
 				<configuration>
-					<ramlToVerifyPath>/src/main/resources/raml/api.raml</ramlToVerifyPath>
-<!-- 					<ramlToVerifyPath>${project.build.directory}/classes/raml/api.raml</ramlToVerifyPath> -->
+					<ramlToVerifyPath>${project.build.directory}/classes/raml/api.raml</ramlToVerifyPath>
 					<performStyleChecks>true</performStyleChecks>
 					<checkRamlAgainstImplementation>true</checkRamlAgainstImplementation>
 					<checkForResourceExistence>true</checkForResourceExistence>
