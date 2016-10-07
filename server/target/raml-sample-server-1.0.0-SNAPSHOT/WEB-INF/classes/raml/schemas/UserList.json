@@ -1,8 +1,0 @@
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-    "id":"https://www.company.com/ws/sample/definitions/UserList.json",
-  "type": "array",
-  "items": {
-    "$ref": "UserDetail.json"
-  }
-}
