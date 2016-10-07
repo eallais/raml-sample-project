@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>raml-sample-project</artifactId>
+		<groupId>com.company</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>raml-sample-server</artifactId>
+	<packaging>war</packaging>
+	<name>RAML Sample Server</name>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.company</groupId>
+			<artifactId>raml-sample-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- To build a war file that is both executable and deployable into an external container you need to mark the embedded container dependencies as “provided”, e.g: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#build-tool-plugins-maven-packaging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<!-- <resources> -->
+		<!-- <resource> -->
+		<!-- <directory>src/main/resources/raml</directory> -->
+		<!-- <includes> -->
+		<!-- <include>**/*.*</include> -->
+		<!-- </includes> -->
+		<!-- <targetPath>raml</targetPath> -->
+		<!-- </resource> -->
+		<!-- </resources> -->
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-raml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<outputDirectory>${project.build.directory}/classes/raml</outputDirectory>
+							<resources>
+								<resource>
+									<directory>../api/src/main/resources/raml</directory>
+									<includes>
+										<include>**/*.*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.phoenixnap.oss</groupId>
+				<artifactId>springmvc-raml-plugin</artifactId>
+				<version>${springmvc-raml-plugin.version}</version>
+				<configuration>
+					<ramlToVerifyPath>/src/main/resources/raml/api.raml</ramlToVerifyPath>
+<!-- 					<ramlToVerifyPath>${project.build.directory}/classes/raml/api.raml</ramlToVerifyPath> -->
+					<performStyleChecks>true</performStyleChecks>
+					<checkRamlAgainstImplementation>true</checkRamlAgainstImplementation>
+					<checkForResourceExistence>true</checkForResourceExistence>
+					<checkForActionExistence>true</checkForActionExistence>
+					<checkForQueryParameterExistence>true</checkForQueryParameterExistence>
+					<checkForPluralisedResourceNames>true</checkForPluralisedResourceNames>
+					<checkForSpecialCharactersInResourceNames>true</checkForSpecialCharactersInResourceNames>
+					<checkForDefinitionOf40xResponseInSecuredResource>true</checkForDefinitionOf40xResponseInSecuredResource>
+					<checkForSchemaInSuccessfulResponseBody>true</checkForSchemaInSuccessfulResponseBody>
+					<checkForSchemaInRequestBody>true</checkForSchemaInRequestBody>
+					<checkForDefinitionOf404ResponseInGetRequest>true</checkForDefinitionOf404ResponseInGetRequest>
+					<checkForResponseBodySchema>true</checkForResponseBodySchema>
+					<breakBuildOnWarnings>false</breakBuildOnWarnings>
+					<logWarnings>true</logWarnings>
+					<logErrors>true</logErrors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-springmvc-api-docs</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>verify-springmvc-api-docs</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>true</addResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

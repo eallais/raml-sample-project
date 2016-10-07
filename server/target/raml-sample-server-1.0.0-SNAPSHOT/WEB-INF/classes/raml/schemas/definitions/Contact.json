@@ -1,0 +1,22 @@
+{  
+    "$schema":"http://json-schema.org/draft-04/schema",
+    "id":"https://www.company.com/ws/sample/definitions/Contact.json",
+    "type":"object",
+    "properties":{  
+        "first_name":{  
+            "type":"string"
+        },
+        "last_name":{  
+            "type":"string"
+        },
+        "email":{  
+            "type":"string"
+        }
+    },
+    "additionalProperties":false,
+    "required":[  
+        "first_name",
+        "last_name",
+        "email"
+    ]
+}

@@ -1,0 +1,29 @@
+{  
+   "$schema":"http://json-schema.org/draft-04/schema",
+    "id":"https://www.company.com/ws/sample/definitions/UserDetail.json",
+   "type":"object",
+   "properties":{  
+      "user_id":{  
+         "type":"integer"
+      },
+      "contact":{  
+         "$ref":"definitions/Contact.json"
+      }
+   },
+   "additionalProperties":false,
+   "required":[  
+      "manager_id",
+      "civility",
+      "first_name",
+      "last_name",
+      "profession",
+      "location",
+      "user_id",
+      "emails",
+      "photos",
+      "phones",
+      "title",
+      "overview",
+      "description"
+   ]
+}

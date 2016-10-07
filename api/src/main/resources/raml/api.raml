@@ -1,0 +1,32 @@
+#%RAML 0.8
+---
+title: Sample API
+version: 1
+baseUri: http://localhost:8080
+mediaType: application/json
+
+schemas:
+  - Contact: !include schemas/definitions/Contact.json
+  - UserDetail: !include schemas/UserDetail.json
+  - UserList: !include schemas/UserList.json
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include samples/user/get_user_list_response.json
+            schema: UserList
+  /{user_id}:
+    uriParameters:
+      user_id:
+        type: number
+        example: 1
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include samples/user/get_user_detail_response.json
+              schema: UserDetail
